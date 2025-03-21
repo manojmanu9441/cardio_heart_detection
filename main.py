@@ -18,7 +18,7 @@ def hello():
         smoke=request.form['smoke']
         alcohol=request.form['alcohol']
         active=request.form['active']
-        model=joblib.load('cardioheart')
+        model=joblib.load('./cardioheart')
         prediction=model.predict([[gender,height,weight,BP_High,BP_Low,Cholestrol,gluocose,smoke,alcohol,active]])
         if prediction == 1 or prediction == '1' :
             return render_template('index2.html')
@@ -27,8 +27,6 @@ def hello():
         
     return render_template('index.html')
 
-
-
-
 if __name__=='__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("FLASK_RUN_PORT", 8000))
+    app.run(host='0.0.0.0',port=port)
